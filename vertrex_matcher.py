@@ -155,5 +155,3 @@ def unregister():
     for cls in reversed(classes):
         unregister_class(cls)
     del bpy.types.Scene.vertex_matcher
-
-register()
