@@ -86,6 +86,33 @@ def matchVertex(axis):
     bpy.ops.object.mode_set(mode = 'OBJECT')
     bpy.ops.object.mode_set(mode = 'EDIT')   
 
+
+def matchDiagonaly():
+    ob = bpy.context.object
+    me = ob.data
+    bm = bmesh.from_edit_mesh(me)
+    selected = bm.select_history
+    first = selected[1]
+    second = selected[0]
+    print(first.co.x)
+    print(second.co.x)
+    print(first.co.y)
+    print(second.co.y)
+    print(first.co.z)
+    print(second.co.z)
+    iter = 0
+    for elem in selected :
+        if(iter<2):
+           iter +=1
+           continue
+        elem.co.x = second.co.x+(first.co.x-second.co.x)/iter
+        elem.co.y = second.co.y+(first.co.y-second.co.y)/iter  
+        elem.co.z = second.co.z+(first.co.z-second.co.z)/iter
+        iter += 1
+    bpy.ops.object.mode_set(mode = 'OBJECT')
+    bpy.ops.object.mode_set(mode = 'EDIT')   
+   
+    
 # ------------------------------------------------------------------------
 #    Operators
 # ------------------------------------------------------------------------
@@ -103,6 +130,14 @@ class WM_OT_VertexMatcher(Operator):
             matchVertex('y')
         if(v_matcher.z_axis==True):
             matchVertex('z')
+        return {'FINISHED'}
+    
+class WM_OT_MathDiagonaly(Operator):
+    bl_label = "Match Diagonaly"
+    bl_idname = "wm.diagonal_match"
+    
+    def execute(self, context):
+        matchDiagonaly()
         return {'FINISHED'}
 
 # ------------------------------------------------------------------------
@@ -133,6 +168,8 @@ class OBJECT_PT_VertexPanel(Panel):
         layout.prop(mytool, "z_axis")
         layout.operator("wm.vertex_matcher")
         layout.separator()
+        layout.operator("wm.diagonal_match")
+        layout.separator()
 
 # ------------------------------------------------------------------------
 #    Registration
@@ -141,6 +178,7 @@ class OBJECT_PT_VertexPanel(Panel):
 classes = (
     VertexMatcherProperties,
     WM_OT_VertexMatcher,
+    WM_OT_MathDiagonaly,
     OBJECT_PT_VertexPanel
 )
 
