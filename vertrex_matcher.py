@@ -2,7 +2,7 @@ bl_info = {
     "name": "Vertex Matcher",
     "description": "Matches Vertex position on one or more axis",
     "author": "Sylwester Moniuszko-Szymanski",
-    "version": (0, 0, 2),
+    "version": (0, 0, 3),
     "blender": (2, 80, 0),
     "location": "3D View > Tools",
     "warning": "", # used for warning icon and text in addons panel
