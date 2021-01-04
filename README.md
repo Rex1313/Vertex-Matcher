@@ -9,6 +9,7 @@ New menu will be visible when in Edit mode mesh under 3D View called Vertex Tool
 Mathing Vertices on axis:
 
 Vertices will be matched to last selected vertex, on selected axis.
+
 1:Select checkbox with axis you want to perform matching on
 
 2:Select vertices you want to align ( you can use either click or box selection )
